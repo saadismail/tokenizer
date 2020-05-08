@@ -264,4 +264,57 @@ public class TokenizerTest {
         assertEquals(actualSymbols, symbols);
     }
 
+    @Test
+    public void dummytest() {
+        String code = "program checkMyAbility;\n" +
+                "\n" +
+                "var\n" +
+                "\n" +
+                "\tcounter: integer;\n" +
+                "\tnumber: integer;\n" +
+                "\tfactorial: integer;\n" +
+                "\theight : real;\n" +
+                "\twidth : real;\n" +
+                "\tbreadth : real;\n" +
+                "\tvolume : real;\n" +
+                "\n" +
+                "begin\n" +
+                "\n" +
+                "\tnumber := 6;\n" +
+                "\tcounter := number;\n" +
+                "\tfactorial := 1;\n" +
+                "\n" +
+                "\twhile counter > 0 do begin\n" +
+                "\t\tnumber := number * counter;\n" +
+                "\t\tcounter := counter – 1;\n" +
+                "\tend\n" +
+                "\n" +
+                "\theight := 8.5;\n" +
+                "\twidth := 4.5;\n" +
+                "\tbreadth := 2.25;\n" +
+                "\tvolume := height * width * breadth;\n" +
+                "\n" +
+                "\tif volume >= 100 and number < 5 then begin\n" +
+                "\t\tvolume := volume / 4;\n" +
+                "\tend\n" +
+                "\n" +
+                "\telse begin\n" +
+                "\t\tif volume >= 50 or number < 10 then begin\n" +
+                "\t\t\tvolume := volume / 2;\n" +
+                "\t\tend\n" +
+                "\tend\n" +
+                "\t\n" +
+                "\twrite(\"Factorial of \");\n" +
+                "\twrite(number);\n" +
+                "\twrite(\" is \");\n" +
+                "\twriteln(factorial);\n" +
+                "\twrite(\"Some odd value is: \");\n" +
+                "\twriteln(volume);\n" +
+                "end.";
+        tokenizer.tokenize(code);
+
+        System.out.println(tokenizer.getTokenList());
+        System.out.println(tokenizer.getSymbolTable());
+    }
+
 }

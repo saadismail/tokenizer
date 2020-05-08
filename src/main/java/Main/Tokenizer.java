@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static Main.Helpers.initEXPR;
+
 public class Tokenizer {
     List<Token> tokens;
     List<Symbol> symbols;
@@ -22,6 +24,8 @@ public class Tokenizer {
         for (int idx = 0; idx < lines.size(); idx++) {
             int lineNumber = idx + 1;
             String line = lines.get(idx);
+
+            if (line.isBlank()) continue;
 
             Parser parser = ParserFactory.getParser(line);
             parser.parse(lineNumber, line, this.tokens, this.symbols);
