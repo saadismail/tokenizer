@@ -12,6 +12,7 @@ public class ParserFactory {
     static Parser end = new End();
     static Parser assignment = new Assignment();
     static Parser readln = new Readln();
+    static Parser write = new Write();
 
     public static Parser getParser(String line) {
         if (Helpers.isRegexMatch(line, RegexConst.PROGRAM_LINE)) {
@@ -28,6 +29,8 @@ public class ParserFactory {
             return assignment;
         } else if (Helpers.isRegexMatch(line, RegexConst.READLN_LINE)){
             return readln;
+        } else if (Helpers.isRegexMatch(line, RegexConst.WRITE_LINE)) {
+            return write;
         }
         else {
             throw new AssertionError(String.format("Can not detect the appropriate type for line = %s, regex = %s", line, RegexConst.ASSIGNMENT_LINE));

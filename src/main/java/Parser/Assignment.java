@@ -25,18 +25,22 @@ public class Assignment extends Parser {
             tokens.add(new Token(SYMBOL, ":=", lineNumber, getMatcherStartingIndex(matcher, 2)));
 
             String secondOperand = matcher.group(3);
-            if (isRegexMatch(secondOperand, RegexConst.INTEGER_CONST)) {
-                tokens.add(new Token(TokenType.INTEGER_CONST, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-            } else if (isRegexMatch(secondOperand, RegexConst.REAL_CONST)) {
-                tokens.add(new Token(TokenType.REAL_CONST, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-            } else if (isRegexMatch(secondOperand, VARIABLE_NAME)) {
-                tokens.add(new Token(IDENTIFIER, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-                symbols.add(new Symbol(IDENTIFIER, matcher.group(3)));
-            } else {
-                throw new AssertionError("Invalid second operand: " + secondOperand);
-            }
+            parseForSecondOperand(lineNumber, tokens, symbols, matcher, secondOperand);
 
             tokens.add(new Token(SYMBOL, ";", lineNumber, getMatcherStartingIndex(matcher, 4)));
+        }
+    }
+
+    private void parseForSecondOperand(int lineNumber, List<Token> tokens, List<Symbol> symbols, Matcher matcher, String secondOperand) {
+        if (isRegexMatch(secondOperand, RegexConst.INTEGER_CONST)) {
+            tokens.add(new Token(TokenType.INTEGER_CONST, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
+        } else if (isRegexMatch(secondOperand, RegexConst.REAL_CONST)) {
+            tokens.add(new Token(TokenType.REAL_CONST, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
+        } else if (isRegexMatch(secondOperand, VARIABLE_NAME)) {
+            tokens.add(new Token(IDENTIFIER, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
+            symbols.add(new Symbol(IDENTIFIER, matcher.group(3)));
+        } else {
+            throw new AssertionError("Invalid second operand: " + secondOperand);
         }
     }
 }

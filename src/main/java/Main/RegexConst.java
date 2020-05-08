@@ -5,8 +5,10 @@ public class RegexConst {
     public static final String VARIABLE_NAME = "[\\w_][_\\w\\d]*";
     public static final String INTEGER_CONST = "\\d+";
     public static final String REAL_CONST = "\\d+.\\d+";
+    public static final String STRING_CONST = "[\"“].*[\"”]";
 
     private static final String VARIABLE_NAME_OR_INT_CONST_OR_REAL_CONST = VARIABLE_NAME + "|" + INTEGER_CONST + "|" + REAL_CONST;
+    private static final String STRING_CONST_OR_VARIABLE_NAME = VARIABLE_NAME + "|" + STRING_CONST;
 
     public static final String PROGRAM_LINE = "(program)\\s+("+ VARIABLE_NAME +")\\s*(;)";
     public static final String VAR_LINE = "\\s*(var)\\s*";
@@ -15,5 +17,5 @@ public class RegexConst {
     public static final String END_LINE = "\\s*(end)(.)?\\s*";
     public static final String ASSIGNMENT_LINE = "\\s*(" + VARIABLE_NAME + ")\\s*(:=)\\s*(" + VARIABLE_NAME_OR_INT_CONST_OR_REAL_CONST + ")\\s*(;)";
     public static final String READLN_LINE = "\\s*(readln)\\s*(\\()("+VARIABLE_NAME+")\\s*(\\))\\s*(;)";
-
+    public static final String WRITE_LINE = "\\s*(write|writeln)\\s*(\\()("+STRING_CONST_OR_VARIABLE_NAME+")\\s*(\\))\\s*(;)";
 }

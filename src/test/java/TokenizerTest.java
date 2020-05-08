@@ -227,4 +227,41 @@ public class TokenizerTest {
         assertEquals(actualSymbols, symbols);
     }
 
+    @Test
+    public void writeLine() {
+        String code = "write(\"Factorial of \");\n" +
+                "write(number);\n" +
+                "writeln(“ is ”);";
+
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(KEYWORD, "write", 1, 1),
+                new Token(SYMBOL, "(", 1, 6),
+                new Token(STRING_CONST, "\"Factorial of \"", 1, 7),
+                new Token(SYMBOL, ")", 1, 22),
+                new Token(SYMBOL, ";", 1, 23),
+
+                new Token(KEYWORD, "write", 2, 1),
+                new Token(SYMBOL, "(", 2, 6),
+                new Token(IDENTIFIER, "number", 2, 7),
+                new Token(SYMBOL, ")", 2, 13),
+                new Token(SYMBOL, ";", 2, 14),
+
+                new Token(KEYWORD, "writeln", 3, 1),
+                new Token(SYMBOL, "(", 3, 8),
+                new Token(STRING_CONST, "“ is ”", 3, 9),
+                new Token(SYMBOL, ")", 3, 15),
+                new Token(SYMBOL, ";", 3, 16)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList(
+                new Symbol(IDENTIFIER, "number")
+        );
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
+
 }
