@@ -6,7 +6,7 @@ public class Symbol {
     String identifier;
     TokenType type;
 
-    public Symbol(String identifier, TokenType type) {
+    public Symbol(TokenType type, String identifier) {
         this.identifier = identifier;
         this.type = type;
     }

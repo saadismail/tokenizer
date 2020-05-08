@@ -28,7 +28,7 @@ public class TokenizerTest {
         assertEquals(actualToken, tokenList);
 
         List<Symbol> actualSymbols = Arrays.asList(
-            new Symbol("checkMyAbility", IDENTIFIER)
+            new Symbol(IDENTIFIER, "checkMyAbility")
         );
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
@@ -36,12 +36,12 @@ public class TokenizerTest {
 
     @Test
     public void varLine() {
-        String code = "var        ";
+        String code = "\tvar        ";
 
         tokenizer.tokenize(code);
 
         List<Token> actualToken = Arrays.asList(
-                new Token(KEYWORD, "var", 1, 1)
+                new Token(KEYWORD, "var", 1, 2)
         );
         List<Token> tokenList = tokenizer.getTokenList();
         assertEquals(actualToken, tokenList);
@@ -103,13 +103,102 @@ public class TokenizerTest {
         assertEquals(actualToken, tokenList);
 
         List<Symbol> actualSymbols = Arrays.asList(
-                new Symbol("counter", IDENTIFIER),
-                new Symbol("number", IDENTIFIER),
-                new Symbol("factorial", IDENTIFIER),
-                new Symbol("height", IDENTIFIER),
-                new Symbol("width", IDENTIFIER),
-                new Symbol("breadth", IDENTIFIER),
-                new Symbol("volume", IDENTIFIER)
+                new Symbol(IDENTIFIER, "counter"),
+                new Symbol(IDENTIFIER, "number"),
+                new Symbol(IDENTIFIER, "factorial"),
+                new Symbol(IDENTIFIER, "height"),
+                new Symbol(IDENTIFIER, "width"),
+                new Symbol(IDENTIFIER, "breadth"),
+                new Symbol(IDENTIFIER, "volume")
+        );
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
+
+    @Test
+    public void beginLine() {
+        String code = "\tbegin        ";
+
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(KEYWORD, "begin", 1, 2)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList();
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
+
+    @Test
+    public void endLine() {
+        String code = "\tend        ";
+
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(KEYWORD, "end", 1, 2)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList();
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
+
+    @Test
+    public void endLineWithDot() {
+        String code = "\tend.        ";
+
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(KEYWORD, "end", 1, 2),
+                new Token(SYMBOL, ".", 1, 5)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList();
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
+
+    @Test
+    public void assignment() {
+        String code = "number := 6;\n" +
+                "\tcounter := number;\n" +
+                "\theight := 1.0;";
+
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(IDENTIFIER, "number", 1, 1),
+                new Token(SYMBOL, ":=", 1, 8),
+                new Token(INTEGER_CONST, "6", 1, 11),
+                new Token(SYMBOL, ";", 1, 12),
+
+                new Token(IDENTIFIER, "counter", 2, 2),
+                new Token(SYMBOL, ":=", 2, 10),
+                new Token(IDENTIFIER, "number", 2, 13),
+                new Token(SYMBOL, ";", 2, 19),
+
+                new Token(IDENTIFIER, "height", 3, 2),
+                new Token(SYMBOL, ":=", 3, 9),
+                new Token(REAL_CONST, "1.0", 3, 12),
+                new Token(SYMBOL, ";", 3, 15)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList(
+                new Symbol(IDENTIFIER, "number"),
+                new Symbol(IDENTIFIER, "counter"),
+                new Symbol(IDENTIFIER, "number"),
+                new Symbol(IDENTIFIER, "height")
         );
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
