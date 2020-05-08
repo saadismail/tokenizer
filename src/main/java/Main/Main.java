@@ -3,10 +3,9 @@ package Main;
 import Model.Symbol;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+
+import static Main.Helpers.getUniqueSymbols;
 
 public class Main {
 
@@ -18,9 +17,7 @@ public class Main {
 
         CsvWriter.writeTokens("token_list.csv", tokenizer.getTokenList());
 
-        List<Symbol> symbolList = tokenizer.getSymbolTable();
-        Set<Symbol> foo = new HashSet<>(symbolList);
-        symbolList = new LinkedList<>(foo);
+        List<Symbol> symbolList = getUniqueSymbols(tokenizer.getSymbolTable());
 
         CsvWriter.writeSymbols("symbol_table.csv", symbolList);
     }

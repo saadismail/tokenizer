@@ -1,6 +1,12 @@
 package Main;
 
+import Model.Symbol;
+import Model.TokenType;
+
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +41,25 @@ public class Helpers {
     public static String initEXPR() {
         String string = String.join("|", expressionDelimiters);
         return String.format("(?<=(%s))|(?=(%s))", string, string);
+    }
+
+    public static List<Symbol> getUniqueSymbols(List<Symbol> symbols){
+
+        List<Symbol> symbolList = symbols;
+        Set<Symbol> foo = new HashSet<>(symbolList);
+        symbolList = new LinkedList<>(foo);
+
+        symbolList.forEach(symbol -> {
+            if (symbol.getVariableType() == TokenType.DEFAULT){
+                symbols.forEach(_symbol ->{
+                    if (symbol.isMatches(_symbol) && _symbol.getVariableType() != TokenType.DEFAULT){
+                        symbol.setVariableType(_symbol.getVariableType());
+                    }
+                });
+            }
+        });
+
+        return symbolList;
     }
 
 }

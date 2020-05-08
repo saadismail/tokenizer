@@ -6,7 +6,8 @@ public enum TokenType {
     IDENTIFIER("identifier"),
     REAL_CONST("real_const"),
     INTEGER_CONST("integer_const"),
-    STRING_CONST("string_const");
+    STRING_CONST("string_const"),
+    DEFAULT("default");
 
     private final String name;
 
