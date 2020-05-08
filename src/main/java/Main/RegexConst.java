@@ -1,3 +1,5 @@
+package Main;
+
 public class RegexConst {
 
     private static final String VARIABLE_NAME = "[\\w_][_\\w\\d]*";

@@ -1,3 +1,4 @@
+import Main.Tokenizer;
 import Model.Symbol;
 import Model.Token;
 import org.junit.Test;

@@ -1,3 +1,5 @@
+package Main;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,5 +24,9 @@ public class Helpers {
     public static boolean isRegexMatch(String line, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(line).matches();
+    }
+
+    public static int getMatcherStartingIndex(Matcher matcher, int groupId) {
+        return matcher.start(groupId) + 1;
     }
 }
