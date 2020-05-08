@@ -203,4 +203,28 @@ public class TokenizerTest {
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
     }
+
+    @Test
+    public void readlnLine() {
+        String code = "readln(counter);";
+
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(KEYWORD, "readln", 1, 1),
+                new Token(SYMBOL, "(", 1, 7),
+                new Token(IDENTIFIER, "counter", 1, 8),
+                new Token(SYMBOL, ")", 1, 15),
+                new Token(SYMBOL, ";", 1, 16)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList(
+                new Symbol(IDENTIFIER, "counter")
+        );
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
+
 }

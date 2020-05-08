@@ -14,4 +14,6 @@ public class RegexConst {
     public static final String BEGIN_LINE = "\\s*(begin)\\s*";
     public static final String END_LINE = "\\s*(end)(.)?\\s*";
     public static final String ASSIGNMENT_LINE = "\\s*(" + VARIABLE_NAME + ")\\s*(:=)\\s*(" + VARIABLE_NAME_OR_INT_CONST_OR_REAL_CONST + ")\\s*(;)";
+    public static final String READLN_LINE = "\\s*(readln)\\s*(\\()("+VARIABLE_NAME+")\\s*(\\))\\s*(;)";
+
 }
