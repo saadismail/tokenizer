@@ -25,17 +25,21 @@ public class Tokenizer {
             String line = lines.get(idx);
 
             if (line.startsWith("program")) {
-                Pattern pattern = Pattern.compile("(program)\\s+([\\w_][_\\w\\d]*)\\s*(;)");
-                Matcher matcher = pattern.matcher(line);
-                while (matcher.find()) {
-                    this.tokens.add(new Token(KEYWORD, matcher.group(1), lineNumber, getMatcherStartingIndex(matcher, 1)));
-
-                    this.tokens.add(new Token(IDENTIFIER, matcher.group(2), lineNumber, getMatcherStartingIndex(matcher, 2)));
-                    this.symbols.add(new Symbol(matcher.group(2), IDENTIFIER));
-
-                    this.tokens.add(new Token(SYMBOL, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-                }
+                parseProgramLine(lineNumber, line);
             }
+        }
+    }
+
+    private void parseProgramLine(int lineNumber, String line) {
+        Pattern pattern = Pattern.compile("(program)\\s+([\\w_][_\\w\\d]*)\\s*(;)");
+        Matcher matcher = pattern.matcher(line);
+        while (matcher.find()) {
+            this.tokens.add(new Token(KEYWORD, matcher.group(1), lineNumber, getMatcherStartingIndex(matcher, 1)));
+
+            this.tokens.add(new Token(IDENTIFIER, matcher.group(2), lineNumber, getMatcherStartingIndex(matcher, 2)));
+            this.symbols.add(new Symbol(matcher.group(2), IDENTIFIER));
+
+            this.tokens.add(new Token(SYMBOL, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
         }
     }
 
