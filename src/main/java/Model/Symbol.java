@@ -35,7 +35,7 @@ public class Symbol {
 
     @Override
     public String toString() {
-        return identifier + "," + type.toString() + "," + variableType.toString();
+        return identifier + "," + variableType.toString();
     }
 
     @Override
@@ -44,11 +44,11 @@ public class Symbol {
         if (o == null || getClass() != o.getClass()) return false;
         Symbol symbol = (Symbol) o;
         return Objects.equals(identifier, symbol.identifier) &&
-                type == symbol.type && variableType == symbol.variableType;
+                type == symbol.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identifier, type, variableType);
+        return Objects.hash(identifier, type);
     }
 }
