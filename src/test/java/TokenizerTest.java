@@ -351,4 +351,32 @@ public class TokenizerTest {
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
     }
+
+    @Test
+    public void expLineTest() {
+        String code = "\nvolume := height * width * breadth;\n";
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(IDENTIFIER, "volume", 2, 1),
+                new Token(SYMBOL, ":=", 2, 8),
+                new Token(IDENTIFIER, "height", 2, 11),
+                new Token(SYMBOL, "*", 2, 18),
+                new Token(IDENTIFIER, "width", 2, 20),
+                new Token(SYMBOL, "*", 2, 26),
+                new Token(IDENTIFIER, "breadth", 2, 28),
+                new Token(SYMBOL, ";", 2, 35)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList(
+                new Symbol("volume"),
+                new Symbol("height"),
+                new Symbol("width"),
+                new Symbol("breadth")
+        );
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
 }
