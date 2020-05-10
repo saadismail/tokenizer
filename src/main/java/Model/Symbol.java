@@ -6,24 +6,24 @@ import static Model.TokenType.DEFAULT;
 
 public class Symbol {
     String identifier;
-    TokenType variableType;
+    TokenType type;
 
-    public Symbol(String identifier, TokenType variableType) {
+    public Symbol(String identifier, TokenType type) {
         this.identifier = identifier;
-        this.variableType = variableType;
+        this.type = type;
     }
 
     public Symbol(String identifier) {
         this.identifier = identifier;
-        this.variableType = DEFAULT;
+        this.type = DEFAULT;
     }
 
-    public TokenType getVariableType() {
-        return variableType;
+    public TokenType getType() {
+        return type;
     }
 
-    public void setVariableType(TokenType variableType) {
-        this.variableType = variableType;
+    public void setType(TokenType type) {
+        this.type = type;
     }
 
     public boolean isMatches(Symbol symbol){
@@ -32,7 +32,7 @@ public class Symbol {
 
     @Override
     public String toString() {
-        return identifier + "," + variableType.toString();
+        return identifier + "," + type.toString();
     }
 
     @Override

@@ -50,10 +50,10 @@ public class Helpers {
         symbolList = new LinkedList<>(foo);
 
         symbolList.forEach(symbol -> {
-            if (symbol.getVariableType() == TokenType.DEFAULT){
+            if (symbol.getType() == TokenType.DEFAULT){
                 symbols.forEach(_symbol ->{
-                    if (symbol.isMatches(_symbol) && _symbol.getVariableType() != TokenType.DEFAULT){
-                        symbol.setVariableType(_symbol.getVariableType());
+                    if (symbol.isMatches(_symbol) && _symbol.getType() != TokenType.DEFAULT){
+                        symbol.setType(_symbol.getType());
                     }
                 });
             }
