@@ -3,22 +3,18 @@ package Model;
 import java.util.Objects;
 
 import static Model.TokenType.DEFAULT;
-import static Model.TokenType.IDENTIFIER;
 
 public class Symbol {
     String identifier;
-    TokenType type;
     TokenType variableType;
 
     public Symbol(String identifier, TokenType variableType) {
         this.identifier = identifier;
-        this.type = IDENTIFIER;
         this.variableType = variableType;
     }
 
     public Symbol(String identifier) {
         this.identifier = identifier;
-        this.type = IDENTIFIER;
         this.variableType = DEFAULT;
     }
 
@@ -31,7 +27,7 @@ public class Symbol {
     }
 
     public boolean isMatches(Symbol symbol){
-        return symbol.identifier.equals(this.identifier) && symbol.type == this.type;
+        return symbol.identifier.equals(this.identifier);
     }
 
     @Override
@@ -44,12 +40,11 @@ public class Symbol {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Symbol symbol = (Symbol) o;
-        return Objects.equals(identifier, symbol.identifier) &&
-                type == symbol.type;
+        return Objects.equals(identifier, symbol.identifier);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identifier, type);
+        return Objects.hash(identifier);
     }
 }
