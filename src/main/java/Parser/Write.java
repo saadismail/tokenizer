@@ -36,7 +36,7 @@ public class Write extends Parser {
             tokens.add(new Token(TokenType.STRING_CONST, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
         } else if (isRegexMatch(operand, VARIABLE_NAME)) {
             tokens.add(new Token(IDENTIFIER, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-            symbols.add(new Symbol(IDENTIFIER, matcher.group(3), DEFAULT));
+            symbols.add(new Symbol(matcher.group(3), DEFAULT));
         } else {
             throw new AssertionError("Invalid operand: " + operand);
         }

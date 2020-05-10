@@ -32,6 +32,7 @@ public class Expression extends Parser {
                 tokens.add(new Token(TokenType.INTEGER_CONST, lexeme, lineNumber, position+1));
             } else if (isRegexMatch(lexeme, VARIABLE_NAME)) {
                 tokens.add(new Token(TokenType.IDENTIFIER, lexeme, lineNumber, position+1));
+                symbols.add(new Symbol(lexeme));
             } else {
                 throw new AssertionError("Lexeme could not be parse from Expression Tokenizer: " + lexeme);
             }

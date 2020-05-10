@@ -19,7 +19,7 @@ public class Readln extends Parser{
             tokens.add(new Token(KEYWORD, matcher.group(1), lineNumber, getMatcherStartingIndex(matcher, 1)));
             tokens.add(new Token(SYMBOL, "(", lineNumber, getMatcherStartingIndex(matcher, 2)));
             tokens.add(new Token(IDENTIFIER, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-            symbols.add(new Symbol(IDENTIFIER, matcher.group(3), DEFAULT));
+            symbols.add(new Symbol(matcher.group(3), DEFAULT));
             tokens.add(new Token(SYMBOL, ")", lineNumber, getMatcherStartingIndex(matcher, 4)));
             tokens.add(new Token(SYMBOL, ";", lineNumber, getMatcherStartingIndex(matcher, 5)));
         }

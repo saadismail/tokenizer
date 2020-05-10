@@ -22,11 +22,11 @@ public class VariableDeclaration extends Parser {
             tokens.add(new Token(KEYWORD, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
 
             if (matcher.group(3).equals("real")){
-                symbols.add(new Symbol(IDENTIFIER, matcher.group(1), REAL_CONST));
+                symbols.add(new Symbol(matcher.group(1), REAL_CONST));
             } else if (matcher.group(3).equals("integer")){
-                symbols.add(new Symbol(IDENTIFIER, matcher.group(1), INTEGER_CONST));
+                symbols.add(new Symbol(matcher.group(1), INTEGER_CONST));
             } else if (matcher.group(3).equals("string")){
-                symbols.add(new Symbol(IDENTIFIER, matcher.group(1), STRING_CONST));
+                symbols.add(new Symbol(matcher.group(1), STRING_CONST));
             }
 
             tokens.add(new Token(SYMBOL, matcher.group(4), lineNumber, getMatcherStartingIndex(matcher, 4)));

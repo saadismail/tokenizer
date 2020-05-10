@@ -28,7 +28,7 @@ public class TokenizerTest {
         assertEquals(actualToken, tokenList);
 
         List<Symbol> actualSymbols = Arrays.asList(
-            new Symbol(IDENTIFIER, "checkMyAbility", STRING_CONST)
+            new Symbol("checkMyAbility", STRING_CONST)
         );
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
@@ -103,13 +103,13 @@ public class TokenizerTest {
         assertEquals(actualToken, tokenList);
 
         List<Symbol> actualSymbols = Arrays.asList(
-                new Symbol(IDENTIFIER, "counter", INTEGER_CONST),
-                new Symbol(IDENTIFIER, "number", INTEGER_CONST),
-                new Symbol(IDENTIFIER, "factorial", INTEGER_CONST),
-                new Symbol(IDENTIFIER, "height", REAL_CONST),
-                new Symbol(IDENTIFIER, "width", REAL_CONST),
-                new Symbol(IDENTIFIER, "breadth", REAL_CONST),
-                new Symbol(IDENTIFIER, "volume", REAL_CONST)
+                new Symbol("counter", INTEGER_CONST),
+                new Symbol("number", INTEGER_CONST),
+                new Symbol("factorial", INTEGER_CONST),
+                new Symbol("height", REAL_CONST),
+                new Symbol("width", REAL_CONST),
+                new Symbol("breadth", REAL_CONST),
+                new Symbol("volume", REAL_CONST)
         );
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
@@ -195,10 +195,10 @@ public class TokenizerTest {
         assertEquals(actualToken, tokenList);
 
         List<Symbol> actualSymbols = Arrays.asList(
-                new Symbol(IDENTIFIER, "number", INTEGER_CONST),
-                new Symbol(IDENTIFIER, "counter", DEFAULT),
-                new Symbol(IDENTIFIER, "number", DEFAULT),
-                new Symbol(IDENTIFIER, "height", REAL_CONST)
+                new Symbol("number", INTEGER_CONST),
+                new Symbol("counter", DEFAULT),
+                new Symbol("number", DEFAULT),
+                new Symbol("height", REAL_CONST)
         );
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
@@ -221,7 +221,7 @@ public class TokenizerTest {
         assertEquals(actualToken, tokenList);
 
         List<Symbol> actualSymbols = Arrays.asList(
-                new Symbol(IDENTIFIER, "counter", DEFAULT)
+                new Symbol("counter", DEFAULT)
         );
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
@@ -258,63 +258,57 @@ public class TokenizerTest {
         assertEquals(actualToken, tokenList);
 
         List<Symbol> actualSymbols = Arrays.asList(
-                new Symbol(IDENTIFIER, "number", DEFAULT)
+                new Symbol("number", DEFAULT)
         );
         List<Symbol> symbols = tokenizer.getSymbolTable();
         assertEquals(actualSymbols, symbols);
     }
 
     @Test
-    public void dummytest() {
-        String code = "program checkMyAbility;\n" +
-                "\n" +
-                "var\n" +
-                "\n" +
-                "\tcounter: integer;\n" +
-                "\tnumber: integer;\n" +
-                "\tfactorial: integer;\n" +
-                "\theight : real;\n" +
-                "\twidth : real;\n" +
-                "\tbreadth : real;\n" +
-                "\tvolume : real;\n" +
-                "\n" +
-                "begin\n" +
-                "\n" +
-                "\tnumber := 6;\n" +
-                "\tcounter := number;\n" +
-                "\tfactorial := 1;\n" +
-                "\n" +
-                "\twhile counter > 0 do begin\n" +
+    public void whileLineTest() {
+        String code = "\twhile counter > 0 do begin\n" +
                 "\t\tnumber := number * counter;\n" +
                 "\t\tcounter := counter – 1;\n" +
-                "\tend\n" +
-                "\n" +
-                "\theight := 8.5;\n" +
-                "\twidth := 4.5;\n" +
-                "\tbreadth := 2.25;\n" +
-                "\tvolume := height * width * breadth;\n" +
-                "\n" +
-                "\tif volume >= 100 and number < 5 then begin\n" +
-                "\t\tvolume := volume / 4;\n" +
-                "\tend\n" +
-                "\n" +
-                "\telse begin\n" +
-                "\t\tif volume >= 50 or number < 10 then begin\n" +
-                "\t\t\tvolume := volume / 2;\n" +
-                "\t\tend\n" +
-                "\tend\n" +
-                "\t\n" +
-                "\twrite(\"Factorial of \");\n" +
-                "\twrite(number);\n" +
-                "\twrite(\" is \");\n" +
-                "\twriteln(factorial);\n" +
-                "\twrite(\"Some odd value is: \");\n" +
-                "\twriteln(volume);\n" +
-                "end.";
+                "\tend\n";
         tokenizer.tokenize(code);
 
-        System.out.println(tokenizer.getTokenList());
-        System.out.println(tokenizer.getSymbolTable());
+        List<Token> actualToken = Arrays.asList(
+                new Token(KEYWORD, "while", 1, 2),
+                new Token(IDENTIFIER, "counter", 1, 8),
+                new Token(SYMBOL, ">", 1, 16),
+                new Token(INTEGER_CONST, "0", 1, 18),
+                new Token(KEYWORD, "do", 1, 20),
+                new Token(KEYWORD, "begin", 1, 23),
+
+                new Token(IDENTIFIER, "number", 2, 3),
+                new Token(SYMBOL, ":=", 2, 10),
+                new Token(IDENTIFIER, "number", 2, 13),
+                new Token(SYMBOL, "*", 2, 20),
+                new Token(IDENTIFIER, "counter", 2, 22),
+                new Token(SYMBOL, ";", 2, 29),
+
+                new Token(IDENTIFIER, "counter", 3, 3),
+                new Token(SYMBOL, ":=", 3, 11),
+                new Token(IDENTIFIER, "counter", 3, 14),
+                new Token(SYMBOL, "–", 3, 22),
+                new Token(INTEGER_CONST, "1", 3, 24),
+                new Token(SYMBOL, ";", 3, 25),
+
+                new Token(KEYWORD, "end", 4, 2)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList(
+                new Symbol("counter"),
+                new Symbol("number"),
+                new Symbol("number"),
+                new Symbol("counter"),
+                new Symbol("counter"),
+                new Symbol("counter")
+        );
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
     }
 
 }

@@ -3,21 +3,22 @@ package Model;
 import java.util.Objects;
 
 import static Model.TokenType.DEFAULT;
+import static Model.TokenType.IDENTIFIER;
 
 public class Symbol {
     String identifier;
     TokenType type;
     TokenType variableType;
 
-    public Symbol(TokenType type, String identifier, TokenType variableType) {
+    public Symbol(String identifier, TokenType variableType) {
         this.identifier = identifier;
-        this.type = type;
+        this.type = IDENTIFIER;
         this.variableType = variableType;
     }
 
-    public Symbol(TokenType type, String identifier) {
+    public Symbol(String identifier) {
         this.identifier = identifier;
-        this.type = type;
+        this.type = IDENTIFIER;
         this.variableType = DEFAULT;
     }
 

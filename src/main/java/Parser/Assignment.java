@@ -4,7 +4,6 @@ import Main.Helpers;
 import Main.RegexConst;
 import Model.Symbol;
 import Model.Token;
-import Model.TokenType;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -35,14 +34,14 @@ public class Assignment extends Parser {
     private void parseForSecondOperand(int lineNumber, List<Token> tokens, List<Symbol> symbols, Matcher matcher, String secondOperand) {
         if (isRegexMatch(secondOperand, RegexConst.INTEGER_CONST)) {
             tokens.add(new Token(INTEGER_CONST, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-            symbols.add(new Symbol(IDENTIFIER, matcher.group(1), INTEGER_CONST));
+            symbols.add(new Symbol(matcher.group(1), INTEGER_CONST));
         } else if (isRegexMatch(secondOperand, RegexConst.REAL_CONST)) {
             tokens.add(new Token(REAL_CONST, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-            symbols.add(new Symbol(IDENTIFIER, matcher.group(1), REAL_CONST));
+            symbols.add(new Symbol(matcher.group(1), REAL_CONST));
         } else if (isRegexMatch(secondOperand, VARIABLE_NAME)) {
             tokens.add(new Token(IDENTIFIER, matcher.group(3), lineNumber, getMatcherStartingIndex(matcher, 3)));
-            symbols.add(new Symbol(IDENTIFIER, matcher.group(1), DEFAULT));
-            symbols.add(new Symbol(IDENTIFIER, matcher.group(3), DEFAULT));
+            symbols.add(new Symbol(matcher.group(1), DEFAULT));
+            symbols.add(new Symbol(matcher.group(3), DEFAULT));
         } else {
             throw new AssertionError("Invalid second operand: " + secondOperand);
         }
