@@ -311,4 +311,44 @@ public class TokenizerTest {
         assertEquals(actualSymbols, symbols);
     }
 
+    @Test
+    public void ifLineTest() {
+        String code = "if volume >= 50 or number < 10 then begin\n" +
+                "volume := volume / 2;\n" +
+                "end\n";
+        tokenizer.tokenize(code);
+
+        List<Token> actualToken = Arrays.asList(
+                new Token(KEYWORD, "if", 1, 1),
+                new Token(IDENTIFIER, "volume", 1, 4),
+                new Token(SYMBOL, ">=", 1, 11),
+                new Token(INTEGER_CONST, "50", 1, 14),
+                new Token(KEYWORD, "or", 1, 17),
+                new Token(IDENTIFIER, "number", 1, 20),
+                new Token(SYMBOL, "<", 1, 27),
+                new Token(INTEGER_CONST, "10", 1, 29),
+                new Token(KEYWORD, "then", 1, 32),
+                new Token(KEYWORD, "begin", 1, 37),
+
+                new Token(IDENTIFIER, "volume", 2, 1),
+                new Token(SYMBOL, ":=", 2, 8),
+                new Token(IDENTIFIER, "volume", 2, 11),
+                new Token(SYMBOL, "/", 2, 18),
+                new Token(INTEGER_CONST, "2", 2, 20),
+                new Token(SYMBOL, ";", 2, 21),
+
+                new Token(KEYWORD, "end", 3, 1)
+        );
+        List<Token> tokenList = tokenizer.getTokenList();
+        assertEquals(actualToken, tokenList);
+
+        List<Symbol> actualSymbols = Arrays.asList(
+                new Symbol("volume"),
+                new Symbol("number"),
+                new Symbol("volume"),
+                new Symbol("volume")
+        );
+        List<Symbol> symbols = tokenizer.getSymbolTable();
+        assertEquals(actualSymbols, symbols);
+    }
 }
